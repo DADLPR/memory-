@@ -74,8 +74,17 @@ def draw():
     color('black')
     write(f'Taps: {num_taps}', font=('Arial', 16, 'normal'))
 
+    # check if all squares have been uncovered
+    if all(not h for h in hide):
+        up()
+        goto(0, 0)
+        color('black')
+        write("Congratulations! You've uncovered all squares!", align="center",
+              font=('Arial', 15, 'normal'))
+
     update()
     ontimer(draw, 100)
+
 
 shuffle(tiles)
 setup(420, 420, 370, 0)
