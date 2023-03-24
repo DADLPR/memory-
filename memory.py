@@ -25,6 +25,24 @@ def square(x, y):
         left(90)
     end_fill()
 
+def colores(mem):
+    if (mem >= 0 and mem <= 4):
+        return 'blue4'
+    elif (mem >= 5 and mem <= 8):
+        return 'DarkRed'
+    elif (mem >= 9 and mem <= 12):
+        return 'chocolate4'
+    elif (mem >= 13 and mem <= 16):
+        return 'DarkGreen'
+    elif (mem >= 17 and mem <= 20):
+        return 'purple'
+    elif (mem >= 21 and mem <= 24):
+        return 'orange'
+    elif (mem >= 25 and mem <= 28):
+        return 'DarkSlateBlue'
+    elif (mem >= 29 and mem <= 32):
+        return 'black'
+
 def index(x, y):
     "Convert (x, y) coordinates to tiles index."
     return int((x + 200) // 50 + ((y + 200) // 50) * 8)
@@ -65,8 +83,9 @@ def draw():
         x, y = xy(mark)
         up()
         goto(x + 26, y)
-        color('black')
+        color(colores(tiles[mark]))
         write(tiles[mark], font=('Arial', 30, 'normal'), align="center")
+
 
     # display the number of taps
     up()
