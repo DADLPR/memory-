@@ -5,17 +5,16 @@ Daniel de la Peña Rosales
 
 from random import *
 from turtle import *
-
 from freegames import path
 
 car = path('car.gif')
 tiles = list(range(32)) * 2
 state = {'mark': None}
 hide = [True] * 64
-
+num_taps = 0  # initialize tap count to 0
 
 def square(x, y):
-    """Draw white square with black outline at (x, y)."""
+    "Draw white square with black outline at (x, y)."
     up()
     goto(x, y)
     down()
@@ -26,19 +25,18 @@ def square(x, y):
         left(90)
     end_fill()
 
-
 def index(x, y):
-    """Convert (x, y) coordinates to tiles index."""
+    "Convert (x, y) coordinates to tiles index."
     return int((x + 200) // 50 + ((y + 200) // 50) * 8)
 
-
 def xy(count):
-    """Convert tiles count to (x, y) coordinates."""
+    "Convert tiles count to (x, y) coordinates."
     return (count % 8) * 50 - 200, (count // 8) * 50 - 200
 
-
 def tap(x, y):
-    """Update mark and hidden tiles based on tap."""
+    "Update mark and hidden tiles based on tap."
+    global num_taps  # reference the global variable
+    num_taps += 1  # increment the tap count
     spot = index(x, y)
     mark = state['mark']
 
@@ -49,9 +47,8 @@ def tap(x, y):
         hide[mark] = False
         state['mark'] = None
 
-
 def draw():
-    """Draw image and tiles."""
+    "Draw image and tiles."
     clear()
     goto(0, 0)
     shape(car)
@@ -71,9 +68,14 @@ def draw():
         color('black')
         write(tiles[mark], font=('Arial', 30, 'normal'))
 
+    # display the number of taps
+    up()
+    goto(-180, 180)
+    color('black')
+    write(f'Taps: {num_taps}', font=('Arial', 16, 'normal'))
+
     update()
     ontimer(draw, 100)
-
 
 shuffle(tiles)
 setup(420, 420, 370, 0)
